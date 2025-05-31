@@ -125,7 +125,7 @@ pub(crate) trait NewType<Inner>: From<Inner> + Into<Inner> + Borrow<Inner> {}
 
 impl<T> NewType<T> for T {}
 
-pub(crate) trait Encoder<Value> {
+pub trait Encoder<Value> {
     fn encode<B: ByteBufMut>(&self, buf: &mut B, value: Value) -> Result<()>;
     fn compute_size(&self, value: Value) -> Result<usize>;
     fn fixed_size(&self) -> Option<usize> {
@@ -133,7 +133,7 @@ pub(crate) trait Encoder<Value> {
     }
 }
 
-pub(crate) trait Decoder<Value> {
+pub trait Decoder<Value> {
     fn decode<B: ByteBuf>(&self, buf: &mut B) -> Result<Value>;
 }
 
